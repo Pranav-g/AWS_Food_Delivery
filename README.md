@@ -22,5 +22,24 @@ wget -O module3_setup.sh 'https://ws-assets-prod-iad-r-iad-ed304a55c2ca1aee.s3.u
 chmod +x module3_setup.sh
 source ./module3_setup.sh
 
-export USERS_STACK_NAME=ws-serverless-patterns-users
+export USERS_STACK_NAME=ws-serverless-patterns-users-1APGNJ7ZUC34
 export ORDERS_STACK_NAME=ws-serverless-patterns-orders
+
+# Install AWS
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+# Check Stack output
+aws cloudformation describe-stacks --stack-name $ORDERS_STACK_NAME --query "Stacks[0].Outputs"
+
+#####
+#####
+# Delete
+#####
+####
+
+export AWS_ACCESS_KEY_ID=""AKIAV6TLJWULEB554LFR export AWS_SECRET_ACCESS_KEY="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" export AWS_REGION="us-east-1"
+
+# Run Python Test
+pytest tests/integration -v
