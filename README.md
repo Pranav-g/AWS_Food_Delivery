@@ -21,3 +21,6 @@ pyenv global 3.9.0    # Set Python 3.9 as default
 wget -O module3_setup.sh 'https://ws-assets-prod-iad-r-iad-ed304a55c2ca1aee.s3.us-east-1.amazonaws.com/76bc5278-3f38-46e8-b306-f0bfda551f5a/module3/sam-python/module3_setup-2024-04-30.sh'
 chmod +x module3_setup.sh
 source ./module3_setup.sh
+
+export USERS_STACK_NAME=ws-serverless-patterns-users
+export ORDERS_STACK_NAME=ws-serverless-patterns-orders
