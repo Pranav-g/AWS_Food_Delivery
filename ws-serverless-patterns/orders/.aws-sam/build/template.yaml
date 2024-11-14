@@ -6,6 +6,12 @@ Description: 'SAM Template for orders
 Globals:
   Api:
     TracingEnabled: true
+  Function:
+    Environment:
+      Variables:
+        POWERTOOLS_SERVICE_NAME: orders
+    Layers:
+    - Fn::Sub: arn:aws:lambda:${AWS::Region}:017000801446:layer:AWSLambdaPowertoolsPythonV2:68
 Parameters:
   UserPool:
     Type: String
@@ -46,10 +52,15 @@ Resources:
       - DynamoDBCrudPolicy:
           TableName:
             Ref: OrdersTable
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: IdempotencyTable
       Environment:
         Variables:
           TABLE_NAME:
             Ref: OrdersTable
+          IDEMPOTENCY_TABLE_NAME:
+            Ref: IdempotencyTable
       Events:
         ApiEvent:
           Type: Api
@@ -178,6 +189,19 @@ Resources:
               Ref: WorkshopApiGateway
     Metadata:
       SamResourceId: CancelOrderFunction
+  IdempotencyTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiration
+        Enabled: true
+      BillingMode: PAY_PER_REQUEST
 Outputs:
   OrdersServiceEndpoint:
     Description: API Gateway endpoint URL
