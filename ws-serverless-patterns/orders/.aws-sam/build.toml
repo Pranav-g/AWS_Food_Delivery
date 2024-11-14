@@ -9,4 +9,11 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["AddOrderFunction"]
 
-[layer_build_definitions]
+[layer_build_definitions.1bd4e480-7c63-4a3f-bb15-fbd2842bf09c]
+layer_name = "PyUtils"
+codeuri = "/workspace/AWS_Food_Delivery/ws-serverless-patterns/orders/src/layers"
+build_method = "python3.9"
+compatible_runtimes = ["python3.9"]
+architecture = "x86_64"
+manifest_hash = ""
+layer = "PyUtils"

@@ -57,6 +57,17 @@ Resources:
             Path: /orders
             Method: post
             RestApiId: !Ref WorkshopApiGateway
+  PyUtils:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+        LayerName: pyutils
+        Description: Shared utilities for Orders service 
+        ContentUri: src/layers/
+        CompatibleRuntimes:
+          - python3.9
+        RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: python3.9
 Outputs:
   OrdersServiceEndpoint:  # Returns the API URL
     Description: "API Gateway endpoint URL"

@@ -43,3 +43,12 @@ export AWS_ACCESS_KEY_ID=""AKIAV6TLJWULEB554LFR export AWS_SECRET_ACCESS_KEY="06
 
 # Run Python Test
 pytest tests/integration -v
+
+# Region
+export AWS_DEFAULT_REGION=us-east-1
+
+# Install Pytest
+pip install pytest
+
+
+
