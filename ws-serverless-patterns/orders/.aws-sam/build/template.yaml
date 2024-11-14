@@ -99,6 +99,31 @@ Resources:
               Ref: WorkshopApiGateway
     Metadata:
       SamResourceId: GetOrderFunction
+  ListOrdersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ListOrdersFunction
+      Handler: list_orders.lambda_handler
+      Runtime: python3.9
+      Tracing: Active
+      Policies:
+        DynamoDBReadPolicy:
+          TableName:
+            Ref: OrdersTable
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: OrdersTable
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /orders
+            Method: get
+            RestApiId:
+              Ref: WorkshopApiGateway
+    Metadata:
+      SamResourceId: ListOrdersFunction
 Outputs:
   OrdersServiceEndpoint:
     Description: API Gateway endpoint URL
