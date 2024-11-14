@@ -29,6 +29,8 @@ export ORDERS_STACK_NAME=ws-serverless-patterns-orders
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+sudo ./sam-installation/install
 
 # Check Stack output
 aws cloudformation describe-stacks --stack-name $ORDERS_STACK_NAME --query "Stacks[0].Outputs"
@@ -53,6 +55,10 @@ pip install pytest
 # Launch py virtual env
 python3 -m venv venv
 source venv/bin/activate
+
+# Install Boto3 in vertual env
+pip install boto3
+
 
 
 
