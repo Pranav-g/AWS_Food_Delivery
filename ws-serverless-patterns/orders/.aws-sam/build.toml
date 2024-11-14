@@ -9,11 +9,16 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["AddOrderFunction"]
 
-[layer_build_definitions.1bd4e480-7c63-4a3f-bb15-fbd2842bf09c]
-layer_name = "PyUtils"
-codeuri = "/workspace/AWS_Food_Delivery/ws-serverless-patterns/orders/src/layers"
-build_method = "python3.9"
-compatible_runtimes = ["python3.9"]
+[function_build_definitions.f3cf87d8-2b9e-4f13-9502-0f15b3f52108]
+codeuri = "/workspace/AWS_Food_Delivery/ws-serverless-patterns/orders/src/api/order/get"
+runtime = "python3.9"
 architecture = "x86_64"
+handler = "get_order.lambda_handler"
 manifest_hash = ""
-layer = "PyUtils"
+packagetype = "Zip"
+functions = ["PyUtils"]
+
+[function_build_definitions.f3cf87d8-2b9e-4f13-9502-0f15b3f52108.metadata]
+BuildMethod = "python3.9"
+
+[layer_build_definitions]

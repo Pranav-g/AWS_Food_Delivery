@@ -61,17 +61,34 @@ Resources:
     Metadata:
       SamResourceId: AddOrderFunction
   PyUtils:
-    Type: AWS::Serverless::LayerVersion
+    Type: AWS::Serverless::Function
     Properties:
-      LayerName: pyutils
-      Description: Shared utilities for Orders service
-      ContentUri: PyUtils
-      CompatibleRuntimes:
-      - python3.9
-      RetentionPolicy: Delete
+      CodeUri: PyUtils
+      Handler: get_order.lambda_handler
+      Runtime: python3.9
+      Tracing: Active
+      Policies:
+        DynamoDBReadPolicy:
+          TableName:
+            Ref: OrdersTable
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: OrdersTable
+      Layers:
+      - Ref: PyUtils
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /orders/{orderId}
+            Method: get
+            RestApiId:
+              Ref: WorkshopApiGateway
     Metadata:
       BuildMethod: python3.9
       SamResourceId: PyUtils
+    GetOrderFunction: null
 Outputs:
   OrdersServiceEndpoint:
     Description: API Gateway endpoint URL
