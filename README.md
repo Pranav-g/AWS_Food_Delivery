@@ -50,5 +50,11 @@ export AWS_DEFAULT_REGION=us-east-1
 # Install Pytest
 pip install pytest
 
+# Launch py virtual env
+
+python3 -m venv venv
+source venv/bin/activate
+
+
 
 
