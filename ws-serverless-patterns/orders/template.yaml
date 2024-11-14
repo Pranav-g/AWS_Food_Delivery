@@ -6,6 +6,12 @@ Description: >
 Globals:
   Api:
     TracingEnabled: true  # Enables AWS X-Ray tracing for the API Gateway.
+  Function:
+    Environment:
+      Variables:
+        POWERTOOLS_SERVICE_NAME: orders
+    Layers:
+      - !Sub arn:aws:lambda:${AWS::Region}:017000801446:layer:AWSLambdaPowertoolsPythonV2:68
 
 Parameters:
   UserPool:
