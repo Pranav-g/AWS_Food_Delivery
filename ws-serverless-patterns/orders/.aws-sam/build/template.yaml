@@ -61,9 +61,21 @@ Resources:
     Metadata:
       SamResourceId: AddOrderFunction
   PyUtils:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: pyutils
+      Description: Shared utilities for Orders service
+      ContentUri: PyUtils
+      CompatibleRuntimes:
+      - python3.9
+      RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: python3.9
+      SamResourceId: PyUtils
+  GetOrderFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: PyUtils
+      CodeUri: GetOrderFunction
       Handler: get_order.lambda_handler
       Runtime: python3.9
       Tracing: Active
@@ -86,9 +98,7 @@ Resources:
             RestApiId:
               Ref: WorkshopApiGateway
     Metadata:
-      BuildMethod: python3.9
-      SamResourceId: PyUtils
-    GetOrderFunction: null
+      SamResourceId: GetOrderFunction
 Outputs:
   OrdersServiceEndpoint:
     Description: API Gateway endpoint URL
