@@ -151,6 +151,33 @@ Resources:
               Ref: WorkshopApiGateway
     Metadata:
       SamResourceId: EditOrderFunction
+  CancelOrderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: CancelOrderFunction
+      Handler: cancel_order.lambda_handler
+      Runtime: python3.9
+      Tracing: Active
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName:
+            Ref: OrdersTable
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: OrdersTable
+      Layers:
+      - Ref: PyUtils
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /orders/{orderId}
+            Method: delete
+            RestApiId:
+              Ref: WorkshopApiGateway
+    Metadata:
+      SamResourceId: CancelOrderFunction
 Outputs:
   OrdersServiceEndpoint:
     Description: API Gateway endpoint URL

@@ -36,6 +36,15 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["ListOrdersFunction"]
 
+[function_build_definitions.8b1a0105-ffb0-4562-87b6-989733618af5]
+codeuri = "/workspace/AWS_Food_Delivery/ws-serverless-patterns/orders/src/api/order/cancel"
+runtime = "python3.9"
+architecture = "x86_64"
+handler = "cancel_order.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["CancelOrderFunction"]
+
 [layer_build_definitions.6d5a643a-2559-41ac-9d14-ec2d79af7ddf]
 layer_name = "PyUtils"
 codeuri = "/workspace/AWS_Food_Delivery/ws-serverless-patterns/orders/src/layers"
