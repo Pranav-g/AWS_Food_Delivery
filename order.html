@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Management</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .form-control { margin-bottom: 15px; }
+    .button { background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border: none; cursor: pointer; border-radius: 5px; }
+    .button:hover { background-color: #0056b3; }
+    pre { background: #f8f8f8; padding: 10px; border-radius: 5px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Order Management</h1>
+  <p id="status"></p>
+
+  <div>
+    <h2>Create Order</h2>
+    <div class="form-control">
+      <label for="restaurantId">Restaurant ID:</label>
+      <input type="number" id="restaurantId" placeholder="Enter Restaurant ID" required>
+    </div>
+    <div class="form-control">
+      <label for="totalAmount">Total Amount:</label>
+      <input type="number" id="totalAmount" placeholder="Enter Total Amount" required>
+    </div>
+    <div class="form-control">
+      <label for="orderItems">Order Items (JSON):</label>
+      <textarea id="orderItems" rows="4" placeholder='[{"id": 1, "name": "Pizza", "price": 9.99, "quantity": 1}]'></textarea>
+    </div>
+    <button class="button" onclick="createOrder()">Create Order</button>
+  </div>
+
+  <div>
+    <h2>List Orders</h2>
+    <button class="button" onclick="listOrders()">List Orders</button>
+    <pre id="ordersResponse">Orders will appear here...</pre>
+  </div>
+
+  <div>
+    <h2>Cancel Order</h2>
+    <div class="form-control">
+      <label for="orderId">Order ID:</label>
+      <input type="text" id="orderId" placeholder="Enter Order ID" required>
+    </div>
+    <button class="button" onclick="cancelOrder()">Cancel Order</button>
+  </div>
+
+  <script>
+    const apiUrl = "https://your-api-gateway-url"; // Replace with your API Gateway URL
+    const token = new URLSearchParams(window.location.hash.substring(1)).get("id_token") || new URLSearchParams(window.location.hash.substring(1)).get("access_token");
+
+    if (!token) {
+      document.getElementById("status").innerText = "Unauthorized: Please log in again.";
+      window.location.href = "login.html"; // Redirect to login page if no token
+    }
+
+    async function createOrder() {
+      const restaurantId = document.getElementById("restaurantId").value;
+      const totalAmount = document.getElementById("totalAmount").value;
+      const orderItems = JSON.parse(document.getElementById("orderItems").value);
+
+      const order = {
+        restaurantId: parseInt(restaurantId),
+        orderId: crypto.randomUUID(),
+        totalAmount: parseFloat(totalAmount),
+        orderItems: orderItems,
+        status: "PLACED"
+      };
+
+      try {
+        const response = await fetch(`${apiUrl}/orders`, {
+          method: "POST",
+          headers: {
+            "Authorization": token,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(order)
+        });
+
+        const data = await response.json();
+        alert("Order Created: " + JSON.stringify(data, null, 2));
+      } catch (err) {
+        alert("Error creating order: " + err.message);
+      }
+    }
+
+    async function listOrders() {
+      try {
+        const response = await fetch(`${apiUrl}/orders`, {
+          method: "GET",
+          headers: {
+            "Authorization": token
+          }
+        });
+
+        const data = await response.json();
+        document.getElementById("ordersResponse").textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        alert("Error listing orders: " + err.message);
+      }
+    }
+
+    async function cancelOrder() {
+      const orderId = document.getElementById("orderId").value;
+
+      try {
+        const response = await fetch(`${apiUrl}/orders/${orderId}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": token
+          }
+        });
+
+        const data = await response.json();
+        alert("Order Canceled: " + JSON.stringify(data, null, 2));
+      } catch (err) {
+        alert("Error canceling order: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    .button { background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+    .button:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+  <h1>Login with Cognito</h1>
+  <p>Click the button below to log in.</p>
+  <a class="button" href="#" id="login-button">Login</a>
+
+  <script>
+    const cognitoDomain = "your-cognito-domain"; // Replace with your Cognito domain
+    const clientId = "your-client-id"; // Replace with your Cognito app client ID
+    const redirectUri = "http://localhost:3000/orders.html"; // Replace with your orders page URL
+
+    document.getElementById('login-button').href = `https://${cognitoDomain}/login?client_id=${clientId}&response_type=token&scope=email+openid+profile&redirect_uri=${redirectUri}`;
+  </script>
+</body>
+</html>
