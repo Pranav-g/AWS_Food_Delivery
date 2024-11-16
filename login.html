@@ -16,9 +16,9 @@
   <a class="button" href="#" id="login-button">Login</a>
 
   <script>
-    const cognitoDomain = "your-cognito-domain"; // Replace with your Cognito domain
-    const clientId = "your-client-id"; // Replace with your Cognito app client ID
-    const redirectUri = "http://localhost:3000/orders.html"; // Replace with your orders page URL
+    const cognitoDomain = "https://1qjagp6t3csn0dqp355k666asp.auth.us-east-1.amazoncognito.com"; // Replace with your Cognito domain
+    const clientId = "1qjagp6t3csn0dqp355k666asp"; // Replace with your Cognito app client ID
+    const redirectUri = "http://awsdeliveryuiorder.s3-website-us-east-1.amazonaws.com"; // Replace with your orders page URL
 
     document.getElementById('login-button').href = `https://${cognitoDomain}/login?client_id=${clientId}&response_type=token&scope=email+openid+profile&redirect_uri=${redirectUri}`;
   </script>
