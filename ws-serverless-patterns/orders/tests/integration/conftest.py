@@ -10,6 +10,8 @@ APPLICATION_STACK_NAME = os.getenv('USERS_STACK_NAME', None)
 MODULE3_STACK_NAME = os.getenv('ORDERS_STACK_NAME', None)
 globalConfig = {}
 
+
+
 def get_stack_outputs(stack_name):
     result = {}
     cf_client = boto3.client('cloudformation')
@@ -70,8 +72,10 @@ def create_cognito_accounts():
     result["user1UserIdToken"] = idp_response["AuthenticationResult"]["IdToken"]
     result["user1UserAccessToken"] = idp_response["AuthenticationResult"]["AccessToken"]
     result["user1UserRefreshToken"] = idp_response["AuthenticationResult"]["RefreshToken"]
+    
 
     return result
+
 
 def clear_dynamo_tables():
     """
@@ -151,3 +155,5 @@ def acknowledge_order_hook(request):
     }
 
     table.delete_item(Key=key)
+
+

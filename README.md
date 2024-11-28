@@ -59,9 +59,13 @@ source venv/bin/activate
 # Install Boto3 in vertual env
 pip install boto3
 
+# nstall Python Packages
+pip install -r requirements.txt
+pip install requests
+
 # Test the env
 sam build && sam deploy
-pytest tests/integration -v
+pytest -s tests/integration -v
 
 
 

@@ -191,3 +191,13 @@ def test_create_order_idempotency(global_config, orders_endpoint, user_token):
   response = requests.get(orders_endpoint, headers=header_data)
   orders = json.loads(response.text)
   assert len(orders['orders']) == 2
+
+@pytest.fixture(scope="session", autouse=True)
+def print_credentials(global_config):
+    """
+    Fixture to print username and password after all tests finish.
+    """
+    yield  # Wait until all tests finish
+    print("\n=== TEST CREDENTIALS ===")
+    print(f"Username: {global_config['user1UserName']}")
+    print(f"Password: {global_config['user1UserPassword']}")
