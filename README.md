@@ -22,7 +22,9 @@ wget -O module3_setup.sh 'https://ws-assets-prod-iad-r-iad-ed304a55c2ca1aee.s3.u
 chmod +x module3_setup.sh
 source ./module3_setup.sh
 
-export USERS_STACK_NAME=ws-serverless-patterns-users-1APGNJ7ZUC34
+# Stack names
+
+export USERS_STACK_NAME=ws-serverless-patterns-users-AP6KGA2W3S9I
 export ORDERS_STACK_NAME=ws-serverless-patterns-orders
 
 # Install AWS
@@ -56,12 +58,18 @@ pip install pytest
 python3 -m venv venv
 source venv/bin/activate
 
-# Install Boto3 in vertual env
+# Install lib if requirement.txt is not working
+pip install requests
 pip install boto3
 
-# nstall Python Packages
-pip install -r requirements.txt
+# install Python Packages
 pip install requests
+pip install -r requirements.txt
+
+# Install Pytest
+pip install pytest
+
+
 
 # Test the env
 sam build && sam deploy

@@ -1,8 +1,8 @@
-import boto3
 import os
 import pytest
 import uuid
 import json
+import boto3
 from datetime import datetime
 from decimal import Decimal
 
