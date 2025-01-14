@@ -3,6 +3,8 @@ import pytest
 import uuid
 import json
 import boto3
+
+client = boto3.client('s3', region_name='us-east-1')
 from datetime import datetime
 from decimal import Decimal
 
@@ -14,7 +16,7 @@ globalConfig = {}
 
 def get_stack_outputs(stack_name):
     result = {}
-    cf_client = boto3.client('cloudformation')
+    cf_client = boto3.client('cloudformation', region_name='us-east-1')
     cf_response = cf_client.describe_stacks(StackName=stack_name)
     outputs = cf_response["Stacks"][0]["Outputs"]
     for output in outputs:
@@ -34,14 +36,14 @@ def create_cognito_accounts():
 
     # Delete any existing users before creating new
     try:
-        idp_client.admin_delete_user(UserPoolId=globalConfig["UserPool"],
+        idp_client.admin_delete_user(UserPoolId='us-east-1_ReLnlGHH9',
                                      Username=result["user1UserName"])
     except idp_client.exceptions.UserNotFoundException:
         print('User1 not found; no deletion necessary. Continuing...')
 
     # Create a new user
     idp_response = idp_client.admin_create_user(
-        UserPoolId=globalConfig["UserPool"],
+        UserPoolId='us-east-1_ReLnlGHH9',
         Username=result["user1UserName"],
         UserAttributes=[{"Name": "name", "Value": result["user1UserName"]}],
         TemporaryPassword=result["user1UserPassword"],

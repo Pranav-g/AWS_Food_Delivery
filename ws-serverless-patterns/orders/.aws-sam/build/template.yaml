@@ -39,8 +39,7 @@ Resources:
         DefaultAuthorizer: Module3CognitoAuthorizer
         Authorizers:
           Module3CognitoAuthorizer:
-            UserPoolArn:
-              Fn::Sub: arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPool}
+            UserPoolArn: arn:aws:cognito-idp:us-east-1:409320666390:userpool/us-east-1_ReLnlGHH9
   AddOrderFunction:
     Type: AWS::Serverless::Function
     Properties:

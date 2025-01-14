@@ -24,7 +24,7 @@ source ./module3_setup.sh
 
 # Stack names
 
-export USERS_STACK_NAME=ws-serverless-patterns-users-AP6KGA2W3S9I
+export USERS_STACK_NAME=ws-serverless-patterns-users-1O8HD7X4GAL5S
 export ORDERS_STACK_NAME=ws-serverless-patterns-orders
 
 # Install AWS
@@ -68,6 +68,10 @@ pip install -r requirements.txt
 
 # Install Pytest
 pip install pytest
+
+# Region Error
+
+export AWS_REGION=us-east-1
 
 
 
