@@ -24,8 +24,8 @@ source ./module3_setup.sh
 
 # Stack names
 
-export USERS_STACK_NAME=ws-serverless-patterns-users-1O8HD7X4GAL5S
-export ORDERS_STACK_NAME=ws-serverless-patterns-orders
+export USERS_STACK_NAME=<>
+export ORDERS_STACK_NAME=<>
 
 # Install AWS
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -37,13 +37,7 @@ sudo ./sam-installation/install
 # Check Stack output
 aws cloudformation describe-stacks --stack-name $ORDERS_STACK_NAME --query "Stacks[0].Outputs"
 
-#####
-#####
-# Delete
-#####
-####
 
-export AWS_ACCESS_KEY_ID=""AKIAV6TLJWULEB554LFR export AWS_SECRET_ACCESS_KEY="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" export AWS_REGION="us-east-1"
 
 # Run Python Test
 pytest tests/integration -v
@@ -73,7 +67,9 @@ pip install pytest
 
 export AWS_REGION=us-east-1
 
+# Note
 
+Add Cognito userpool arn in orders yaml file
 
 # Test the env
 sam build && sam deploy

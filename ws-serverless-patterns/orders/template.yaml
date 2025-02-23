@@ -42,7 +42,7 @@ Resources:
         DefaultAuthorizer: Module3CognitoAuthorizer
         Authorizers:
           Module3CognitoAuthorizer:  # Sets Cognito user pool as default authorizer for API requests
-            UserPoolArn: "arn:aws:cognito-idp:us-east-1:409320666390:userpool/us-east-1_ReLnlGHH9"
+            UserPoolArn: <>
   AddOrderFunction:
     Type: AWS::Serverless::Function
     Properties:
